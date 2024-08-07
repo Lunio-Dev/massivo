@@ -6,6 +6,7 @@ COPY . .
 
 RUN apt-get install maven -y
 RUN mvn clean install
+RUN ls -la target
 
 # Use a imagem base oficial do OpenJDK
 FROM openjdk:17-jdk-slim
