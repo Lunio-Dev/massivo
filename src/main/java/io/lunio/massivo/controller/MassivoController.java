@@ -19,9 +19,9 @@ import io.lunio.massivo.service.MassivoService;
 @RestController
 @RequestMapping("/massivo")
 public class MassivoController {
-
+ 
     @Autowired
-    private MassivoService massivoService;
+     private MassivoService massivoService;
 
     @PostMapping
     public Massivo createMassivo(@RequestBody Massivo massivo) {
