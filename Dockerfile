@@ -1,22 +1,31 @@
+# Etapa de construção
 FROM ubuntu:latest AS build
 
-RUN apt-get update
-RUN apt-get install openjdk-17-jdk -y
+# Atualizar pacotes e instalar dependências
+RUN apt-get update && \
+    apt-get install -y openjdk-17-jdk maven
+
+# Copiar o código fonte para o contêiner
 COPY . .
 
-RUN apt-get install maven -y
+# Definir o diretório de trabalho e construir o projeto
+WORKDIR /app
 RUN mvn clean install
+
+# Exibir os arquivos no diretório target para depuração
 RUN ls -la target
 
-
+# Etapa de execução
 FROM openjdk:17-jdk
 
-# Diretório de trabalho dentro do contêiner
-WORKDIR /massivo/src/io/lunio/massivo
+# Definir o diretório de trabalho dentro do contêiner
+WORKDIR /app
 
+# Copiar o arquivo JAR da etapa de construção para o contêiner
+COPY --from=build /app/target/massivo-0.0.1-SNAPSHOT.jar app.jar
+
+# Expor a porta em que a aplicação vai rodar
 EXPOSE 8080
-# Copiar o arquivo JAR para o contêiner
-COPY --from=build/target/massivo-0.0.1-SNAPSHOT.jar
 
 # Comando para executar o JAR
 ENTRYPOINT ["java", "-jar", "app.jar"]
