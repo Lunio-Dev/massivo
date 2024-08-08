@@ -27,10 +27,10 @@
 FROM openjdk:17-jdk
 
 # Diretório de trabalho dentro do contêiner
-WORKDIR /app
+WORKDIR /massivo/src/io/lunio/massivo
 
 # Copiar o arquivo JAR para o contêiner
-COPY target/massivo-0.0.1-SNAPSHOT.jar app.jar
+COPY target/massivo-0.0.1-SNAPSHOT.jar massivo.jar
 
 # Comando para executar o JAR
 ENTRYPOINT ["java", "-jar", "app.jar"]
