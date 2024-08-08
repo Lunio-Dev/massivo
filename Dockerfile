@@ -12,7 +12,7 @@ RUN ls -la target
 FROM openjdk:17-jdk-slim
 
 # Define o diretório de trabalho
-WORKDIR /app
+WORKDIR /main
 
 EXPOSE 8080
 
